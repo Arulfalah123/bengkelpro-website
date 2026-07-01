@@ -28,12 +28,12 @@ if (hamburger && navMenu) {
 }
 
 // ── Floating sidebar toggle ───────────────────────────────────────
-const fsbToggle  = document.getElementById('fsbToggle');
+const fsbToggle    = document.getElementById('fsbToggle');
 const floatSidebar = document.getElementById('floatSidebar');
 if (fsbToggle && floatSidebar) {
   fsbToggle.addEventListener('click', () => {
-    floatSidebar.classList.toggle('hidden');
-    fsbToggle.textContent = floatSidebar.classList.contains('hidden') ? '‹' : '›';
+    floatSidebar.classList.toggle('collapsed');
+    fsbToggle.textContent = floatSidebar.classList.contains('collapsed') ? '‹' : '›';
   });
 }
 
