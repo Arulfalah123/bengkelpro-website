@@ -1,130 +1,78 @@
-/* ============================================================
-   BengkelPro – Main JavaScript
-   ============================================================ */
+/* ============================
+   BengkelPro — main.js
+   ============================ */
 
-/* ---------- Navbar Scroll Shadow ---------- */
-(function () {
-  const navbar = document.querySelector('.navbar');
-  if (!navbar) return;
+// ── Navbar scroll shadow ──────────────────────────────────────────
+const navbar = document.querySelector('.navbar');
+if (navbar) {
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 20);
   });
-})();
+}
 
-/* ---------- Hamburger Menu ---------- */
-(function () {
-  const btn  = document.querySelector('.hamburger');
-  const menu = document.querySelector('.nav-menu');
-  if (!btn || !menu) return;
-
-  btn.addEventListener('click', () => {
-    const open = menu.classList.toggle('open');
-    btn.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', open);
+// ── Hamburger menu ────────────────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+const navMenu   = document.getElementById('navMenu');
+if (hamburger && navMenu) {
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
   });
-
-  // Close menu when a link is clicked
-  menu.querySelectorAll('a').forEach(link => {
+  navMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
     });
   });
+}
 
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (!navbar.contains(e.target)) {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-    }
+// ── Floating sidebar toggle ───────────────────────────────────────
+const fsbToggle  = document.getElementById('fsbToggle');
+const floatSidebar = document.getElementById('floatSidebar');
+if (fsbToggle && floatSidebar) {
+  fsbToggle.addEventListener('click', () => {
+    floatSidebar.classList.toggle('hidden');
+    fsbToggle.textContent = floatSidebar.classList.contains('hidden') ? '‹' : '›';
   });
-})();
+}
 
-/* ---------- Active Nav Link ---------- */
-(function () {
-  const links = document.querySelectorAll('.nav-menu a');
-  const current = location.pathname.split('/').pop() || 'index.html';
-  links.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === current || (current === '' && href === 'index.html')) {
-      link.classList.add('active');
-    }
-  });
-})();
-
-/* ---------- Gallery Filter ---------- */
-(function () {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const items = document.querySelectorAll('.gallery-item');
-  if (!filterBtns.length) return;
-
+// ── Gallery filter ─────────────────────────────────────────────────
+const filterBtns = document.querySelectorAll('.filter-btn');
+if (filterBtns.length) {
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Update active state
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.dataset.filter;
-      items.forEach(item => {
-        if (filter === 'semua' || item.dataset.category === filter) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.classList.toggle('hidden', filter !== 'all' && item.dataset.category !== filter);
       });
     });
   });
-})();
+}
 
-/* ---------- Contact Form Handler ---------- */
-(function () {
-  const form    = document.getElementById('contactForm');
-  const success = document.getElementById('successState');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
+// ── Contact form submit ────────────────────────────────────────────
+const kontakForm  = document.querySelector('.contact-form');
+const successState = document.querySelector('.success-state');
+if (kontakForm && successState) {
+  kontakForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    // Basic validation feedback
-    const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-    let valid = true;
-    inputs.forEach(input => {
-      if (!input.value.trim()) {
-        input.style.borderColor = '#E8222A';
-        valid = false;
-      } else {
-        input.style.borderColor = '';
-      }
-    });
-    if (!valid) return;
-
-    // Simulate submission delay
-    const submitBtn = form.querySelector('.btn-submit');
-    submitBtn.textContent = 'Mengirim...';
-    submitBtn.disabled = true;
-
-    setTimeout(() => {
-      form.style.display = 'none';
-      if (success) success.style.display = 'block';
-    }, 1200);
+    kontakForm.style.display = 'none';
+    successState.style.display = 'block';
   });
-})();
+}
 
-/* ---------- Scroll Reveal (IntersectionObserver) ---------- */
-(function () {
-  const elements = document.querySelectorAll('.reveal');
-  if (!elements.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
+// ── Scroll-reveal animation ────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window && revealEls.length) {
+  const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+        io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-
-  elements.forEach(el => observer.observe(el));
-})();
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+}
