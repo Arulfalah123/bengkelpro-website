@@ -285,15 +285,16 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 80px;
   background: linear-gradient(180deg, #1a3a8c 0%, #1a2a6c 60%, #c41c23 100%);
   border-radius: 12px 0 0 12px;
   padding: 6px 0 0;
   box-shadow: -4px 0 20px rgba(0,0,0,.25);
   overflow: hidden;
-  transition: transform var(--transition), right var(--transition);
+  transition: right var(--transition);
 }
 .float-sidebar.collapsed {
-  right: -72px;
+  right: -80px;
 }
 
 .fsb-item {
