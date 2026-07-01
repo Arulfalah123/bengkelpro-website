@@ -394,9 +394,36 @@ ul { list-style: none; }
   gap: 8px;
 }
 
-/* ============================================================
-   PAGE HERO (inner pages)
-   ============================================================ */
+.btn-white-solid {
+  background: var(--white);
+  color: var(--dark);
+  border-color: var(--white);
+}
+.btn-white-solid:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* Footer logo */
+.footer-logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: -.5px;
+}
+.footer-logo span { color: var(--red); }
+
+/* Footer contact SVG icons */
+.footer-contact li {
+  display: flex;
+  gap: 10px;
+  font-size: .88rem;
+  margin-bottom: 10px;
+  align-items: flex-start;
+  color: #aaa;
+}
+.footer-contact svg { flex-shrink: 0; margin-top: 2px; color: #666; }
 .page-hero {
   background: linear-gradient(135deg, var(--dark) 0%, var(--dark-3) 100%);
   color: var(--white);
@@ -655,6 +682,13 @@ ul { list-style: none; }
   font-size: 2.4rem;
   margin-bottom: 18px;
   display: block;
+}
+.svc-svg {
+  width: 56px; height: 56px;
+  background: rgba(232,34,42,.08);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
 }
 .service-card h3 {
   font-size: 1.1rem;
