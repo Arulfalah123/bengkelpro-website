@@ -456,28 +456,27 @@ ul { list-style: none; }
   overflow: hidden;
 }
 
-/* Background: dramatic dark with red glow */
+/* Background: real photo from local assets */
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,34,42,.22) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(180,10,10,.15) 0%, transparent 60%),
-    linear-gradient(160deg, #0a0a0a 0%, #1a0505 40%, #0d0d0d 100%);
+  background-image: url('../img/hero-bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  transition: transform 8s ease;
 }
+.hero:hover .hero-bg { transform: scale(1.03); }
 
-/* Subtle texture overlay */
+/* Dark overlay - teks tetap terbaca */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,.012) 2px,
-      rgba(255,255,255,.012) 4px
-    );
+  background: linear-gradient(
+    160deg,
+    rgba(0,0,0,.60) 0%,
+    rgba(15,0,0,.72) 50%,
+    rgba(0,0,0,.82) 100%
+  );
 }
 
 .hero-content {
